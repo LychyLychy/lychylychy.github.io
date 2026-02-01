@@ -19,12 +19,23 @@ xhr.open('GET', url + "?" + xhr_params.toString());
 xhr.responseType = 'json';
 
 xhr.onload = () => doIt(xhr.response);
-xhr.onerror = () => (document.documentElement.innerHTML = "An error has occured, please check the console");
+xhr.onerror = () => error();
 xhr.send();
 
 function doIt(response)
 {
+	if(json.error)
+	{
+		error();
+		return;
+	}
+		
 	window.location.replace(download_url + "?" + response.content[0].params);
+}
+
+function error()
+{
+	document.documentElement.innerHTML = "An error has occured, please check the console"
 }
 </script> 
 
