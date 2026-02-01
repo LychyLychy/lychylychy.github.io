@@ -6,12 +6,11 @@ let download_url = params.get("download_url");
 let proxy = "https://proxy.corsfix.com/?";
 let ajax_url = proxy + "https://soundideas.sourceaudio.com/ajax.php";
 
-download_url = "https://d1ombmsyi1byit.cloudfront.net/4/4/0/5/5/5/9/0/44055590-129.mp3"
 const url = new URL(ajax_url);
 const xhr_params = new URLSearchParams(
 {
 	p: "download_auth",
-	trackId: 44055590
+	trackId: id
 })
 
 const xhr = new XMLHttpRequest();
@@ -20,7 +19,7 @@ xhr.open('GET', url + "?" + xhr_params.toString());
 xhr.responseType = 'json';
 
 xhr.onload = () => doIt(xhr.response);
-xhr.onerror = () => console.error('Request failed');
+xhr.onerror = () => (document.documentElement.innerHTML = "An error has occured, please check the console");
 xhr.send();
 
 function doIt(response)
@@ -28,4 +27,5 @@ function doIt(response)
 	window.location.replace(download_url + "?" + response.content[0].params);
 }
 </script> 
+
 <noscript>Sorry, your browser does not support JavaScript!</noscript> 
