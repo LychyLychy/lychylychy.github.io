@@ -24,13 +24,14 @@ xhr.send();
 
 function doIt(response)
 {
-	if(response.error)
+	const params = response.content[0].params;
+	if(!params)
 	{
 		error();
 		return;
 	}
 		
-	window.location.replace(download_url + "?" + response.content[0].params);
+	window.location.replace(download_url + "?" + params);
 }
 
 function error()
