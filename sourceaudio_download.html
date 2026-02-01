@@ -1,0 +1,31 @@
+<script>
+let params = new URLSearchParams(document.location.search);
+let id = params.get("id");
+let download_url = params.get("download_url");
+
+let proxy = "https://proxy.corsfix.com/?";
+let ajax_url = proxy + "https://soundideas.sourceaudio.com/ajax.php";
+
+
+const url = new URL(ajax_url);
+const xhr_params = new URLSearchParams(
+{
+	p: "download_auth",
+	trackId: 44055590
+})
+
+const xhr = new XMLHttpRequest();
+
+xhr.open('GET', url + "?" + xhr_params.toString());
+xhr.responseType = 'json';
+
+xhr.onload = () => doIt(xhr.response);
+xhr.onerror = () => console.error('Request failed');
+xhr.send();
+
+function doIt(response)
+{
+	window.location.replace(download_url + "?" + response.content[0].params);
+}
+</script> 
+<noscript>Sorry, your browser does not support JavaScript!</noscript> 
